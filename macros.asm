@@ -66,9 +66,9 @@ macro insert_empty(j, u, ss, e0, e1)
     ; Since J and U versions are just plain $FF,
     ; this is faster than reading from a file
     if !_VER == !__VER_J
-        rep <j> : db $FF
+        for i = 0..<j> : db $FF : endfor
     elseif !_VER == !__VER_U
-        rep <u> : db $FF
+        for i = 0..<u> : db $FF : endfor
     else
         !n = con(<j>,<u>,<ss>,<e0>,<e1>)
         !i = 0
@@ -87,7 +87,7 @@ macro insert_empty(j, u, ss, e0, e1)
             
             db !b
             !i #= !i+1
-        endif
+        endwhile
     endif
 endmacro
 
@@ -125,7 +125,7 @@ macro incpal(file)
 		!b = readfile1("<file>", 3*!i+2)
 		dw ((!b&$F8)<<7)|((!g&$F8)<<2)|((!r&$F8)>>3)
 		!i #= !i+1
-	endif
+	endwhile
 endmacro
 
 ; select a constant value depending on the region
